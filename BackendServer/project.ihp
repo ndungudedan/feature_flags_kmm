@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ihp
+        SYSTEM "https://resources.jetbrains.com/stardust/ihp.dtd">
+<ihp version="2.0">
+    <settings/>
+
+    <module name="ktor"/>
+    <snippets src="codeSnippets"/>
+    <vars src="v.list"/>
+    <topics dir="topics"/>
+    <images dir="images" web-path="images/"/>
+    <categories src="c.list"/>
+    <product src="ktor.tree"
+             web-path="/docs/"
+             version="2.0.3"
+             id="docs"
+             keymaps-mode="none"/>
+
+</ihp>

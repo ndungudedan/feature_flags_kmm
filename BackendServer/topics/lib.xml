@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/stardust/html-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/stardust/topic.v2.xsd" id="lib"
+       title="Library of Includes">
+
+
+    <chunk id="install_plugin">
+        <p>
+            To <a href="Plugins.md" anchor="install">install</a> the <code>%plugin_name%</code> plugin, pass it to the <code>install</code> function in the application initialization code. Depending on the <a href="create_server.xml">way used to create a server</a>, this can be the <code>embeddedServer</code> function call ...
+        </p>
+        <code style="block" lang="kotlin" interpolate-variables="true">
+            import io.ktor.server.application.*
+            import %package_name%.*
+            // ...
+            fun main() {
+                embeddedServer(Netty, port = 8080) {
+                    install(%plugin_name%)
+                    // ...
+                }.start(wait = true)
+            }
+        </code>
+        <p>
+            ... or a specified <a href="Modules.md">module</a>.
+        </p>
+        <code style="block" lang="kotlin" interpolate-variables="true">
+            import io.ktor.server.application.*
+            import %package_name%.*
+            // ...
+            fun Application.module() {
+                install(%plugin_name%)
+                // ...
+            }
+        </code>
+    </chunk>
+
+
+    <chunk id="add_ktor_artifact_intro">
+        <p>
+            To use <code>%plugin_name%</code>, you need to include the <code>%artifact_name%</code> artifact in the build script:
+        </p>
+    </chunk>
+
+    <chunk id="add_ktor_client_artifact_tip">
+        <p>
+            You can learn more about artifacts required by the Ktor client from <a href="client-dependencies.md"/>.
+        </p>
+    </chunk>
+
+
+    <chunk id="add_ktor_artifact">
+        <tabs group="languages">
+            <tab title="Gradle (Kotlin)" group-key="kotlin">
+                <code style="block" lang="Kotlin" interpolate-variables="true">
+                    implementation("io.ktor:%artifact_name%:$ktor_version")
+                </code>
+            </tab>
+            <tab title="Gradle (Groovy)" group-key="groovy">
+                <code style="block" lang="Groovy" interpolate-variables="true">
+                    implementation "io.ktor:%artifact_name%:$ktor_version"
+                </code>
+            </tab>
+            <tab title="Maven" group-key="maven">
+                <code style="block" lang="XML" interpolate-variables="true">
+        <![CDATA[
+                    <dependency>
+                        <groupId>io.ktor</groupId>
+                        <artifactId>%artifact_name%-jvm</artifactId>
+                        <version>${ktor_version}</version>
+                    </dependency>
+                    ]]>
+        </code>
+            </tab>
+        </tabs>
+    </chunk>
+
+    <chunk id="add_ktor_artifact_mpp">
+        <tabs group="languages">
+            <tab title="Gradle (Kotlin)" group-key="kotlin">
+                <code style="block" lang="Kotlin" interpolate-variables="true">
+                    implementation("io.ktor:%artifact_name%:$ktor_version")
+                </code>
+            </tab>
+            <tab title="Gradle (Groovy)" group-key="groovy">
+                <code style="block" lang="Groovy" interpolate-variables="true">
+                    implementation "io.ktor:%artifact_name%:$ktor_version"
+                </code>
+            </tab>
+            <tab title="Maven" group-key="maven">
+                <code style="block" lang="XML" interpolate-variables="true">
+        <![CDATA[
+                    <dependency>
+                        <groupId>io.ktor</groupId>
+                        <artifactId>%artifact_name%%target%</artifactId>
+                        <version>${ktor_version}</version>
+                    </dependency>
+                    ]]>
+        </code>
+            </tab>
+        </tabs>
+    </chunk>
+
+    <chunk id="add_ktor_artifact_testing">
+        <tabs group="languages">
+            <tab title="Gradle (Kotlin)" group-key="kotlin">
+                <code style="block" lang="Kotlin" interpolate-variables="true">
+                    testImplementation("io.ktor:%artifact_name%:$ktor_version")
+                </code>
+            </tab>
+            <tab title="Gradle (Groovy)" group-key="groovy">
+                <code style="block" lang="Groovy" interpolate-variables="true">
+                    testImplementation "io.ktor:%artifact_name%:$ktor_version"
+                </code>
+            </tab>
+            <tab title="Maven" group-key="maven">
+                <code style="block" lang="XML" interpolate-variables="true">
+        <![CDATA[
+                    <dependency>
+                        <groupId>io.ktor</groupId>
+                        <artifactId>%artifact_name%-jvm</artifactId>
+                        <version>${ktor_version}</version>
+                    </dependency>
+                    ]]>
+        </code>
+            </tab>
+        </tabs>
+    </chunk>
+
+
+    <chunk id="add_artifact">
+        <tabs group="languages">
+            <tab title="Gradle (Kotlin)" group-key="kotlin">
+                <code style="block" lang="Kotlin" interpolate-variables="true">
+                    implementation("%group_id%:%artifact_name%:$%version%")
+                </code>
+            </tab>
+            <tab title="Gradle (Groovy)" group-key="groovy">
+                <code style="block" lang="Groovy" interpolate-variables="true">
+                    implementation "%group_id%:%artifact_name%:$%version%"
+                </code>
+            </tab>
+            <tab title="Maven" group-key="maven">
+                <code style="block" lang="XML" interpolate-variables="true">
+        <![CDATA[
+                    <dependency>
+                        <groupId>%group_id%</groupId>
+                        <artifactId>%artifact_name%</artifactId>
+                        <version>${%version%}</version>
+                    </dependency>
+                    ]]>
+        </code>
+            </tab>
+        </tabs>
+    </chunk>
+
+
+    <chunk id="add_artifact_testing">
+        <tabs group="languages">
+            <tab title="Gradle (Kotlin)" group-key="kotlin">
+                <code style="block" lang="Kotlin" interpolate-variables="true">
+                    testImplementation("%group_id%:%artifact_name%:$%version%")
+                </code>
+            </tab>
+            <tab title="Gradle (Groovy)" group-key="groovy">
+                <code style="block" lang="Groovy" interpolate-variables="true">
+                    testImplementation "%group_id%:%artifact_name%:$%version%"
+                </code>
+            </tab>
+            <tab title="Maven" group-key="maven">
+                <code style="block" lang="XML" interpolate-variables="true">
+        <![CDATA[
+                    <dependency>
+                        <groupId>%group_id%</groupId>
+                        <artifactId>%artifact_name%</artifactId>
+                        <version>${%version%}</version>
+                    </dependency>
+                    ]]>
+        </code>
+            </tab>
+        </tabs>
+    </chunk>
+
+    <chunk id="add_ktor_artifact_multiplatform">
+        <tabs group="languages">
+            <tab title="Gradle (Kotlin)" group-key="kotlin">
+                <code style="block" lang="Kotlin" interpolate-variables="true">
+                    val %platform_name%Main by getting {
+                        dependencies {
+                            implementation("io.ktor:%artifact_name%:$ktor_version")
+                        }
+                    }
+                </code>
+            </tab>
+            <tab title="Gradle (Groovy)" group-key="groovy">
+                <code style="block" lang="Groovy" interpolate-variables="true">
+                    %platform_name%Main {
+                        dependencies {
+                            implementation "io.ktor:%artifact_name%:$ktor_version"
+                        }
+                    }
+                </code>
+            </tab>
+        </tabs>
+    </chunk>
+
+
+    <chunk id="outdated_warning">
+        <tip>
+            This help topic is in development and will be updated in the future.
+        </tip>
+    </chunk>
+
+    <chunk id="experimental">
+        <p>
+            The API is production ready, but may be slightly modified in a minor release. This is why it's marked with the
+            <code>@%annotation_name%</code> annotation. If you want to use this API, you need to <code>OptIn</code>:
+        </p>
+        <code style="block" lang="kotlin" interpolate-variables="true">
+            @OptIn(%annotation_name%::class)
+        </code>
+        <p>
+            If you want to leave your feedback or subscribe on updates, check out the <a href="https://youtrack.jetbrains.com/issue/KTOR-%issue_number%">KTOR-%issue_number%</a> design issue.
+        </p>
+    </chunk>
+
+
+    <chunk id="new_project_idea">
+        <p>
+            On the Welcome screen, click <control>New Project</control>.
+        </p>
+        <p>
+            Otherwise, from the main menu, select <menupath>File | New | Project</menupath>.
+        </p>
+    </chunk>
+
+
+    <chunk id="download_example">
+        <p>
+            <b>Code example</b>:
+            <a href="https://github.com/ktorio/ktor-documentation/tree/%current-branch%/codeSnippets/snippets/%example_name%">
+                %example_name%
+            </a>
+        </p>
+    </chunk>
+
+    <chunk id="plugin_prerequisites">
+        <p>
+            Before starting this tutorial:
+        </p>
+        <list>
+            <li>
+                <p>
+                    <a href="https://www.jetbrains.com/help/idea/installation-guide.html">Install IntelliJ IDEA Ultimate</a>.
+                </p>
+                <note>
+                    <p>
+                        If you use IntelliJ IDEA Community or other IDE, you can generate a Ktor project using a <a href="https://start.ktor.io/">web-based project generator</a>.
+                    </p>
+                </note>
+            </li>
+            <li>
+                <p>
+                    Make sure the <a href="https://www.jetbrains.com/help/idea/ktor.html">Ktor plugin</a> is installed and enabled.
+                </p>
+            </li>
+        </list>
+    </chunk>
+
+    <chunk id="client_prerequisites">
+        <p>
+            Before starting this tutorial:
+        </p>
+        <list>
+            <li>
+                <p>
+                    <a href="https://www.jetbrains.com/help/idea/installation-guide.html">Install IntelliJ IDEA Community or Ultimate</a>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Make sure the <a href="https://plugins.jetbrains.com/plugin/6954-kotlin">Kotlin</a> plugin is installed and enabled. Learn how to do this from the
+                    <a href="https://www.jetbrains.com/help/idea/managing-plugins.html#open-plugin-settings">Install plugins</a> topic.
+                </p>
+            </li>
+        </list>
+    </chunk>
+</topic>
+
+

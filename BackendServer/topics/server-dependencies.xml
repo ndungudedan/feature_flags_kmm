@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic SYSTEM "https://resources.jetbrains.com/stardust/html-entities.dtd">
+
+<topic xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/stardust/topic.v2.xsd"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       title="Adding Ktor dependencies"
+       id="server-dependencies" auxiliary-id="Gradle">
+
+    <excerpt>Learn how to add Ktor dependencies to the existing Gradle/Maven project.</excerpt>
+
+    <p>
+        In this topic, we'll show you how to add dependencies required for Ktor to the existing Gradle/Maven project.
+    </p>
+
+    <chapter title="Configure the repositories" id="repositories">
+        <p>
+            Before adding Ktor dependencies, you need to configure the repositories for this project:
+        </p>
+        <list>
+            <li>
+                <p>
+                    <control>Production</control>
+                </p>
+                <p>
+                    Production releases of Ktor are available in the Maven central repository.
+                    You can declare this repository in your build script as follows:
+                </p>
+                <tabs group="languages">
+                    <tab title="Gradle (Kotlin)" group-key="kotlin">
+                        <code style="block" lang="Kotlin" interpolate-variables="true">
+                            repositories {
+                                mavenCentral()
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Gradle (Groovy)" group-key="groovy">
+                        <code style="block" lang="Groovy" interpolate-variables="true">
+                            repositories {
+                                mavenCentral()
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Maven" group-key="maven">
+                        <note>
+                            <p>
+                                You don't need to add the Maven central repository in the <path>pom.xml</path> file since your project inherits the central repository from
+                                <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html#super-pom">Super POM</a>.
+                            </p>
+                        </note>
+                    </tab>
+                </tabs>
+            </li>
+            <li>
+                <p>
+                    <control>Early Access Program (EAP)</control>
+                </p>
+                <p>
+                    To get access to the <a href="https://ktor.io/eap/">EAP</a> versions of Ktor, you need to reference the <a href="https://maven.pkg.jetbrains.space/public/p/ktor/eap/io/ktor/">Space repository</a>:
+                </p>
+                <tabs group="languages">
+                    <tab title="Gradle (Kotlin)" group-key="kotlin">
+                        <code style="block" lang="Kotlin">
+                            repositories {
+                                maven {
+                                    url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
+                                }
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Gradle (Groovy)" group-key="groovy">
+                        <code style="block" lang="Groovy">
+                            repositories {
+                                maven {
+                                    url "https://maven.pkg.jetbrains.space/public/p/ktor/eap"
+                                }
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Maven" group-key="maven">
+                        <code style="block" lang="XML">
+                            <![CDATA[
+                            <repositories>
+                                <repository>
+                                    <id>ktor-eap</id>
+                                    <url>https://maven.pkg.jetbrains.space/public/p/ktor/eap</url>
+                                </repository>
+                            </repositories>
+                            ]]>
+                        </code>
+                    </tab>
+                </tabs>
+                <p>
+                    Note that Ktor EAPs might require the <a href="https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev">Kotlin dev repository</a>:
+                </p>
+                <tabs group="languages">
+                    <tab title="Gradle (Kotlin)" group-key="kotlin">
+                        <code style="block" lang="Kotlin">
+                            repositories {
+                                maven {
+                                    url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+                                }
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Gradle (Groovy)" group-key="groovy">
+                        <code style="block" lang="Groovy">
+                            repositories {
+                                maven {
+                                    url "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev"
+                                }
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Maven" group-key="maven">
+                        <code style="block" lang="XML">
+                            <![CDATA[
+                            <repositories>
+                                <repository>
+                                    <id>ktor-eap</id>
+                                    <url>https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev</url>
+                                </repository>
+                            </repositories>
+                            ]]>
+                        </code>
+                    </tab>
+                </tabs>
+            </li>
+        </list>
+    </chapter>
+
+
+
+    <chapter title="Add dependencies" id="add-ktor-dependencies">
+        <chapter title="Core dependencies" id="core-dependencies">
+            <p>
+                Every Ktor application requires at least the following dependencies:
+            </p>
+            <list>
+                <li>
+                    <p>
+                        <code>ktor-server-core</code>: contains core Ktor functionality.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        A dependency for an <a href="Engines.md">engine</a> (for example, <code>ktor-server-netty</code>).
+                    </p>
+                </li>
+            </list>
+            <p>
+                For different platforms, Ktor provides platform-specific artifacts with suffixes such as <code>-jvm</code>, for example, <code>ktor-server-core-jvm</code> or <code>ktor-server-netty-jvm</code>.
+                Note that Gradle resolves artifacts appropriate for a given platform while Maven doesn't support this capability.
+                This means that for Maven you need to add a platform-specific suffix manually.
+                The <code>dependencies</code> block for a basic Ktor application might look as follows:
+            </p>
+            <tabs group="languages">
+                <tab title="Gradle (Kotlin)" group-key="kotlin">
+                    <code style="block" lang="Kotlin" interpolate-variables="true">
+                        dependencies {
+                            implementation("io.ktor:ktor-server-core:%ktor_version%")
+                            implementation("io.ktor:ktor-server-netty:%ktor_version%")
+                        }
+                    </code>
+                </tab>
+                <tab title="Gradle (Groovy)" group-key="groovy">
+                    <code style="block" lang="Groovy" interpolate-variables="true">
+                        dependencies {
+                            implementation "io.ktor:ktor-server-core:%ktor_version%"
+                            implementation "io.ktor:ktor-server-netty:%ktor_version%"
+                        }
+                    </code>
+                </tab>
+                <tab title="Maven" group-key="maven">
+                    <code style="block" lang="XML" interpolate-variables="true">
+                <![CDATA[
+                        <dependencies>
+                            <dependency>
+                                <groupId>io.ktor</groupId>
+                                <artifactId>ktor-server-core-jvm</artifactId>
+                                <version>%ktor_version%</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>io.ktor</groupId>
+                                <artifactId>ktor-server-netty-jvm</artifactId>
+                                <version>%ktor_version%</version>
+                            </dependency>
+                        </dependencies>
+                        ]]>
+                </code>
+                </tab>
+            </tabs>
+        </chapter>
+
+
+        <chapter title="Logging dependency" id="logging-dependency">
+            <p>
+                Ktor uses SLF4J API as a facade for various logging frameworks (for example, Logback or Log4j) and allows you to log application events.
+                To learn how to add the required artifacts, see <a href="logging.md" anchor="add_dependencies"/>.
+            </p>
+        </chapter>
+
+        <chapter title="Plugin dependencies" id="plugin-dependencies">
+            <p>
+                <a href="Plugins.md">Plugins</a> that extend Ktor functionality might require additional dependencies.
+                You can learn more from corresponding topics.
+            </p>
+        </chapter>
+
+    </chapter>
+
+
+    <chapter title="Create an entry point for running an application" id="create-entry-point">
+        <p>
+            <a href="running.md">Running</a> a Ktor server using Gradle/Maven depends on the way used to <a href="create_server.xml">create a server</a>.
+            You can specify the application main class in one of the following ways:
+        </p>
+        <list>
+            <li>
+                <p>
+                    If you use <a href="create_server.xml" anchor="embedded-server">embeddedServer</a>, specify the main class as follows:
+                </p>
+                <tabs group="languages">
+                    <tab title="Gradle (Kotlin)" group-key="kotlin">
+                        <code style="block" lang="Kotlin">
+                            application {
+                                mainClass.set("com.example.ApplicationKt")
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Gradle (Groovy)" group-key="groovy">
+                        <code style="block" lang="Groovy">
+                            application {
+                                mainClass = "com.example.ApplicationKt"
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Maven" group-key="maven">
+                        <code style="block" lang="XML" interpolate-variables="true">
+                <![CDATA[
+                            <properties>
+                                <main.class>com.example.ApplicationKt</main.class>
+                            </properties>
+                            ]]>
+                </code>
+                    </tab>
+                </tabs>
+            </li>
+            <li>
+                <p>
+                    If you use <a href="create_server.xml" anchor="engine-main">EngineMain</a>, you need to configure it as the main class.
+                    For Netty, it will look as follows:
+                </p>
+                <tabs group="languages">
+                    <tab title="Gradle (Kotlin)" group-key="kotlin">
+                        <code style="block" lang="Kotlin">
+                            application {
+                                mainClass.set("io.ktor.server.netty.EngineMain")
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Gradle (Groovy)" group-key="groovy">
+                        <code style="block" lang="Groovy">
+                            application {
+                                mainClass = "io.ktor.server.netty.EngineMain"
+                            }
+                        </code>
+                    </tab>
+                    <tab title="Maven" group-key="maven">
+                        <code style="block" lang="XML" interpolate-variables="true">
+                <![CDATA[
+                            <properties>
+                                <main.class>io.ktor.server.netty.EngineMain</main.class>
+                            </properties>
+                            ]]>
+                </code>
+                    </tab>
+                </tabs>
+            </li>
+        </list>
+        <note>
+            <p>
+                If you are going to package your application as a Fat JAR, you also need to take into account the way used to create a server when configuring corresponding plugins.
+                Learn more from the following topics:
+            </p>
+            <list>
+                <li>
+                    <p>
+                        <a href="fatjar.md"/>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <a href="maven-assembly-plugin.md"/>
+                    </p>
+                </li>
+            </list>
+        </note>
+    </chapter>
+</topic>

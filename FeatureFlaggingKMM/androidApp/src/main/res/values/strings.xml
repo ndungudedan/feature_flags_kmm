@@ -1,0 +1,7 @@
+<resources>
+    <string name="winter_screen">Winter</string>
+    <string name="summer_screen">Summer</string>
+    <string name="autumn_screen">Autumn</string>
+    <string name="spring_screen">Spring</string>
+    <string name="index_screen">Index</string>
+</resources>
