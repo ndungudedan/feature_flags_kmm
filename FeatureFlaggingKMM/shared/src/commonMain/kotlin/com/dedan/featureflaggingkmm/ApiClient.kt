@@ -11,7 +11,7 @@ import kotlinx.serialization.json.Json
 
 class ApiClient {
 
-    val baseUrl = "http://192.168.2.101:8080/"
+    val baseUrl = "http://192.168.2.105:8080/"
     //val baseUrl = "http://your-ip-address:server-port/"
 
     private val client = HttpClient {
@@ -42,7 +42,7 @@ class ApiClient {
         try {
             return client.get(baseUrl + "featureFlag").body()
         }catch (e: Exception){
-            print("seasons API FAILED: "+e.message )
+            print("feature flag API FAILED: "+e.message )
         }
         return null
     }

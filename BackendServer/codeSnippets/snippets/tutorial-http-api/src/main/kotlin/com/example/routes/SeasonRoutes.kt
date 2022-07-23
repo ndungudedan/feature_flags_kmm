@@ -26,7 +26,7 @@ fun Route.featureFlagRouting(){
 
     route("/featureFlag"){
         get {
-            call.respond("toggleFeature")
+            call.respond(toggleFeature)
         }
 
         post {
