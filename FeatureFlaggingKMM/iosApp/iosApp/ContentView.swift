@@ -1,16 +1,12 @@
 import SwiftUI
 import shared
 
-
-
-
 struct ContentView: View {
     @StateObject var featureFlagConroller = AsyncModel { try await MainViewState().featureFlag() }
-    
 
 	var body: some View {
         AsyncModelView(model: featureFlagConroller) { flag in
-                 AsyncFeatureView(flag: flag)
+                 AsyncFeatureView(flag: false)
         }
 }
 }
@@ -30,36 +26,45 @@ struct AsyncFeatureView: View {
     let flag: Bool
     var body: some View {
         
-        AsyncModelView(model: mainViewConroller) { seasons in
-            if(flag){
-            AsyncModelView(model: mainViewConroller) { seasons in
-                MainView(seasons: seasons)
-            }}else
-            {
-             TabView{
-                 DeprecatedMainView(photos:filterSeasons(name: "Winter", seasons:seasons)).tabItem(){
-                     Image(systemName: "phone.fill")
-                Text("Winter")
-                }
-                 DeprecatedMainView(photos:filterSeasons(name: "Summer", seasons:seasons)).tabItem(){
-                    Image(systemName: "phone.fill")
-                     Text("Summer")
-                }
-                 DeprecatedMainView(photos:filterSeasons(name: "Autumn", seasons:seasons)).tabItem(){
-                    Image(systemName: "phone.fill")
-                     Text("Autumn")
-                 }
-                 DeprecatedMainView(photos:filterSeasons(name: "Spring", seasons:seasons)).tabItem(){
-                    Image(systemName: "phone.fill")
-                     Text("Spring")
-                 }
-             
-         }
-   }
+    AsyncModelView(model: mainViewConroller) { seasons in
+        applyView(flag: flag, seasons: seasons)
         }
     }
 }
 
+struct applyView:View{
+    let flag:Bool
+    let seasons:[SeasonsResponse]
+    var body:some View{
+        
+        if(flag){
+            MainView(seasons: seasons)
+        }
+        else
+        {
+         TabView{
+             DeprecatedMainView(photos:filterSeasons(name: "Winter", seasons:seasons)).tabItem(){
+                 Image(systemName: "snow")
+            Text("Winter")
+            }
+             DeprecatedMainView(photos:filterSeasons(name: "Summer", seasons:seasons)).tabItem(){
+                Image(systemName: "sun.max.fill")
+                 Text("Summer")
+            }
+             DeprecatedMainView(photos:filterSeasons(name: "Autumn", seasons:seasons)).tabItem(){
+                Image(systemName: "wind.snow")
+                 Text("Autumn")
+             }
+             DeprecatedMainView(photos:filterSeasons(name: "Spring", seasons:seasons)).tabItem(){
+                Image(systemName: "leaf.fill")
+                 Text("Spring")
+             }
+         
+     }
+}
+
+    }
+}
 
 struct AsyncResultView<Success, Content: View>: View {
     let result: AsyncResult<Success>
@@ -105,16 +110,16 @@ struct MainView:View{
     let seasons:[SeasonsResponse]
     var body: some View{
         ScrollView(.vertical) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading,spacing: 20) {
                     ForEach(seasons,id: \.self) { season in
                         Text(season.seasonName)
                         ScrollView(.horizontal){
-                            VStack(alignment: .leading){
+                            HStack(spacing:20){
                                 ForEach(season.contents,id:\.self){photo in
-                                    AsyncImage(url: URL(string: photo.url)).frame(width: 250, height: 300)
+                                    AsyncImage(url: URL(string: photo.url)).frame(width: 200, height: 250).padding([.all], 20)
                                 }
                             }
-                        }.frame( height:350)
+                        }.frame( height:250)
                     }
                 }
             }
@@ -126,7 +131,7 @@ struct DeprecatedMainView:View{
     let photos:[SeasonPhoto]
     var body: some View{
         ScrollView(.vertical) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading,spacing: 20) {
                     ForEach(photos,id: \.self) { photo in
                                     AsyncImage(url: URL(string: photo.url)).frame(width: 250, height: 300)
                                 

@@ -11,10 +11,6 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
-		A1558DF0288B9CBC00455BC8 /* SummerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1558DEF288B9CBC00455BC8 /* SummerView.swift */; };
-		A1558DF2288B9CCF00455BC8 /* WinterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1558DF1288B9CCF00455BC8 /* WinterView.swift */; };
-		A1558DF4288B9CE200455BC8 /* AutumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1558DF3288B9CE200455BC8 /* AutumnView.swift */; };
-		A1558DF6288B9CF400455BC8 /* SpringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1558DF5288B9CF400455BC8 /* SpringView.swift */; };
 		A1558DFA288BA1FD00455BC8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1558DF9288BA1FD00455BC8 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,10 +34,6 @@
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1558DEF288B9CBC00455BC8 /* SummerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummerView.swift; sourceTree = "<group>"; };
-		A1558DF1288B9CCF00455BC8 /* WinterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinterView.swift; sourceTree = "<group>"; };
-		A1558DF3288B9CE200455BC8 /* AutumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutumnView.swift; sourceTree = "<group>"; };
-		A1558DF5288B9CF400455BC8 /* SpringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpringView.swift; sourceTree = "<group>"; };
 		A1558DF9288BA1FD00455BC8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,7 +76,6 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				A1558DEE288B9BF100455BC8 /* Views */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
@@ -100,17 +91,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A1558DEE288B9BF100455BC8 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				A1558DEF288B9CBC00455BC8 /* SummerView.swift */,
-				A1558DF1288B9CCF00455BC8 /* WinterView.swift */,
-				A1558DF3288B9CE200455BC8 /* AutumnView.swift */,
-				A1558DF5288B9CF400455BC8 /* SpringView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		A1558DFB288BA21500455BC8 /* controller */ = {
@@ -214,12 +194,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1558DFA288BA1FD00455BC8 /* MainViewController.swift in Sources */,
-				A1558DF0288B9CBC00455BC8 /* SummerView.swift in Sources */,
-				A1558DF4288B9CE200455BC8 /* AutumnView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
-				A1558DF2288B9CCF00455BC8 /* WinterView.swift in Sources */,
-				A1558DF6288B9CF400455BC8 /* SpringView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
