@@ -6,7 +6,7 @@ struct ContentView: View {
 
 	var body: some View {
         AsyncModelView(model: featureFlagConroller) { flag in
-                 AsyncFeatureView(flag: false)
+                 AsyncFeatureView(flag: flag)
         }
 }
 }
@@ -78,7 +78,7 @@ struct AsyncResultView<Success, Content: View>: View {
     var body: some View {
         switch result {
             case .empty:
-                EmptyView()
+                Text("Weather Seasons")
             case .inProgress:
                 ProgressView()
             case let .success(value):
@@ -114,12 +114,12 @@ struct MainView:View{
                     ForEach(seasons,id: \.self) { season in
                         Text(season.seasonName)
                         ScrollView(.horizontal){
-                            HStack(spacing:20){
+                            HStack(alignment:.bottom,spacing:20){
                                 ForEach(season.contents,id:\.self){photo in
-                                    AsyncImage(url: URL(string: photo.url)).frame(width: 200, height: 250).padding([.all], 20)
+                                    AsyncImage(url: URL(string: photo.url),scale: 2.0).frame(width: 200, height: 200)
                                 }
                             }
-                        }.frame( height:250)
+                        }.frame( height:200)
                     }
                 }
             }
