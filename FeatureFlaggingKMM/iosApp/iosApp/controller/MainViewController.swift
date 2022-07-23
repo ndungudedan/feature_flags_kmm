@@ -33,7 +33,7 @@ init(operation : @escaping AsyncOperation) {
     }
 }
 
-struct SeasonsState {
+struct MainViewState {
     private var kmmSdk=HomeClass()
 
     func seasons() async throws -> [SeasonsResponse] {
@@ -41,7 +41,7 @@ struct SeasonsState {
     }
     
     func featureFlag() async throws -> Bool {
-        return try await kmmSdk.getFeatureFlag()
+        return try await kmmSdk.getFeatureFlag() as! Bool
     }
 }
 

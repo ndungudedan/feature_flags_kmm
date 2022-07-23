@@ -5,38 +5,13 @@ import shared
 
 
 struct ContentView: View {
-    @StateObject var mainViewConroller = AsyncModel { try await SeasonsState().seasons() }
+    @StateObject var featureFlagConroller = AsyncModel { try await MainViewState().featureFlag() }
+    
 
 	var body: some View {
-        
-        AsyncModelView(model: mainViewConroller) { seasons in
-            Text(String(seasons.capacity))
-            //List(filterSeasons(name: "Summer", seasons:seasons)) { photo in
-              // Text(photo.name)
-           //}
+        AsyncModelView(model: featureFlagConroller) { flag in
+                 AsyncFeatureView(flag: flag)
         }
-
-        
-       // TabView{
-         //   WinterView().tabItem(){
-           //     Image(systemName: "phone.fill")
-             ///   Text("Winter")
-          //  }
-            //SummerView().tabItem(){
-              //  Image(systemName: "phone.fill")
-                ///Text("Summer")
-           // }
-            //AutumnView().tabItem(){
-              //  Image(systemName: "phone.fill")
-             //   Text("Autumn")
-            //}
-            //SpringView().tabItem(){
-               // Image(systemName: "phone.fill")
-                //Text("Spring")
-            //}
-        
-	//}
-        
 }
 }
 
@@ -46,6 +21,43 @@ struct ContentView_Previews: PreviewProvider {
             ContentView()
         }
 	}
+}
+
+struct AsyncFeatureView: View {
+    
+    @StateObject var mainViewConroller = AsyncModel { try await MainViewState().seasons() }
+    
+    let flag: Bool
+    var body: some View {
+        
+        AsyncModelView(model: mainViewConroller) { seasons in
+            if(flag){
+            AsyncModelView(model: mainViewConroller) { seasons in
+                MainView(seasons: seasons)
+            }}else
+            {
+             TabView{
+                 DeprecatedMainView(photos:filterSeasons(name: "Winter", seasons:seasons)).tabItem(){
+                     Image(systemName: "phone.fill")
+                Text("Winter")
+                }
+                 DeprecatedMainView(photos:filterSeasons(name: "Summer", seasons:seasons)).tabItem(){
+                    Image(systemName: "phone.fill")
+                     Text("Summer")
+                }
+                 DeprecatedMainView(photos:filterSeasons(name: "Autumn", seasons:seasons)).tabItem(){
+                    Image(systemName: "phone.fill")
+                     Text("Autumn")
+                 }
+                 DeprecatedMainView(photos:filterSeasons(name: "Spring", seasons:seasons)).tabItem(){
+                    Image(systemName: "phone.fill")
+                     Text("Spring")
+                 }
+             
+         }
+   }
+        }
+    }
 }
 
 
@@ -86,3 +98,43 @@ struct AsyncModelView<Success, Content: View>: View {
         }
     }
 }
+
+
+
+struct MainView:View{
+    let seasons:[SeasonsResponse]
+    var body: some View{
+        ScrollView(.vertical) {
+                VStack(alignment: .leading) {
+                    ForEach(seasons,id: \.self) { season in
+                        Text(season.seasonName)
+                        ScrollView(.horizontal){
+                            VStack(alignment: .leading){
+                                ForEach(season.contents,id:\.self){photo in
+                                    AsyncImage(url: URL(string: photo.url)).frame(width: 250, height: 300)
+                                }
+                            }
+                        }.frame( height:350)
+                    }
+                }
+            }
+    }
+}
+
+
+struct DeprecatedMainView:View{
+    let photos:[SeasonPhoto]
+    var body: some View{
+        ScrollView(.vertical) {
+                VStack(alignment: .leading) {
+                    ForEach(photos,id: \.self) { photo in
+                                    AsyncImage(url: URL(string: photo.url)).frame(width: 250, height: 300)
+                                
+                    }
+                }
+            }
+    }
+}
+
+
+
