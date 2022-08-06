@@ -2,7 +2,7 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    @StateObject var featureFlagConroller = AsyncModel { try await MainViewState().featureFlag() }
+    @StateObject var featureFlagController = AsyncModel { try await MainViewState().featureFlag() }
 
 	var body: some View {
         AsyncModelView(model: featureFlagConroller) { flag in
