@@ -5,7 +5,7 @@ struct ContentView: View {
     @StateObject var featureFlagController = AsyncModel { try await MainViewState().featureFlag() }
 
 	var body: some View {
-        AsyncModelView(model: featureFlagConroller) { flag in
+        AsyncModelView(model: featureFlagController) { flag in
                  AsyncFeatureView(flag: flag)
         }
 }
