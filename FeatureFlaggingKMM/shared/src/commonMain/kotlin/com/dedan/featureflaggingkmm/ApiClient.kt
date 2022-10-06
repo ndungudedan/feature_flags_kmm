@@ -29,7 +29,6 @@ class ApiClient {
         }
     }
 
-
     suspend fun getAllSeasons(): List<SeasonsResponse> {
         try {
             return client.get(baseUrl + "seasons").body()
@@ -38,14 +37,4 @@ class ApiClient {
         }
         return emptyList()
     }
-
-    suspend fun getFeatureFlag(): Boolean? {
-        try {
-            return client.get(baseUrl + "featureFlag").body()
-        }catch (e: Exception){
-            print("feature flag API FAILED: "+e.message )
-        }
-        return null
-    }
-
 }
